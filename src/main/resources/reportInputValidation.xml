@@ -1,0 +1,1116 @@
+<Reports>
+	<Report name="Shared">
+		<Fields>
+			<Field name="beginDate">
+				<Type>Date</Type>
+				<Size>10</Size>
+				<Required>1</Required>
+				<ValidateMethod>beginDateEndDateValidation</ValidateMethod>
+			</Field>
+			<Field name="endDate">
+				<Type>Date</Type>
+				<Size>10</Size>
+				<Required>1</Required>
+			</Field>
+			<Field name="effectiveDate">
+				<Type>Date</Type>
+				<Size>10</Size>
+				<Required>0</Required>
+			</Field>
+			<Field name="priorRate">
+				<Type>String</Type>
+				<Size>6</Size>
+				<Required>0</Required>
+			</Field>
+			<Field name="currentRate">
+				<Type>String</Type>
+				<Size>6</Size>
+				<Required>0</Required>
+			</Field>
+			<Field name="plan">
+				<Type>String</Type>
+				<Size>4</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="purchasePlan">
+				<Type>String</Type>
+				<Size>4</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="status">
+				<Type>String</Type>
+				<!-- <Size>9</Size> -->
+				<Required>1</Required>
+				<Default>ACTIVE</Default>
+				<Values>ACTIVE,IN_ACTIVE,BOTH</Values>
+			</Field>
+			<Field name="performanceBasedOn">
+				<Type>String</Type>
+				<!-- <Size>22</Size> -->
+				<Required>1</Required>
+				<Default>GRANT_SHARES</Default>
+				<Values>GRANT_SHARES,MAXIMUM_PAYOUT_PERCENT,TARGET_PAYOUT_PERCENT,GRANT_AMOUNT</Values>
+			</Field>
+			<Field name="closeType">
+				<Type>String</Type>
+				<!-- <Size>12</Size> -->
+				<Required>1</Required>
+				<Values>CURRENT,TO_DATE,PERIOD_CLOSE</Values>
+			</Field>
+			<Field name="splitAdjusted">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="calendar">
+				<Type>String</Type>
+				<Size>50</Size>
+				<Required>1</Required>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="periodType">
+				<Type>String</Type>
+				<Size>20</Size>
+				<Required>1</Required>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="period">
+				<Type>String</Type>
+				<Size>20</Size>
+				<Required>1</Required>
+				<Lookup>1</Lookup>
+			</Field>
+			
+			<Field name="isToDate">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+						
+			<Field name="version">
+				<Type>String</Type>
+				<Size>19</Size>
+				<Required>0</Required>
+				<ValidateMethod>verionDateValidation</ValidateMethod>
+				<Lookup>1</Lookup>
+			</Field>
+
+			<Field name="mode">
+				<Type>String</Type>
+				<!-- <Size>6</Size> -->
+				<Required>1</Required>
+				<Default>AD_HOC</Default>
+				<Values>AD_HOC,CLOSED</Values>
+				<DependentFields value="CLOSED">
+					<Field name="closeType" ref="Shared.closeType">
+						<InnerDependentFields value="PERIOD_CLOSE">
+							<Field name="splitAdjusted" ref="Shared.splitAdjusted" />
+						</InnerDependentFields>
+						<InnerDependentFields value="CURRENT">
+							<Field name="isToDate" ref="Shared.isToDate" />
+						</InnerDependentFields>						
+					</Field>
+					<Field name="calendar" ref="Shared.calendar" />
+					<Field name="periodType" ref="Shared.periodType" />
+					<Field name="period" ref="Shared.period" />
+				</DependentFields>
+				<ValidateMethod>periodCloseValidation</ValidateMethod> <!-- validate supported views for closed, mode, calendar, periodType, period -->
+			</Field>
+			<Field name="reportType">
+				<Type>String</Type>
+				<!-- <Size>7</Size> -->
+				<Required>1</Required>
+				<Values>ALL,OPTIONS,AWARDS</Values>
+				<ValidateMethod>reportTypeEntitlementCheck</ValidateMethod>
+			</Field>
+			<Field name="priorMarketValue">
+				<Type>Number</Type>
+				<Required>0</Required>
+				<Precision>valueDecimal</Precision>
+			</Field>
+			<Field name="marketValue">
+				<Type>Number</Type>
+				<Size>20</Size>
+				<Required>0</Required>
+				<Precision>valueDecimal</Precision>
+			</Field>
+			<Field name="detailByUDF">
+				<Type>String</Type>
+				<Size>300</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+				<ValidateMethod>userDefinedFieldNameCheck</ValidateMethod>
+			</Field>
+			<Field name="dividends">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>No</Default>
+			</Field>
+			<Field name="useConfirmDate">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="useSARsNetCalculation">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="asOf">
+				<Type>String</Type>
+				<!-- <Size>16</Size> -->
+				<Required>1</Required>
+				<Default>TERMINATION_DATE</Default>
+				<Values>TERMINATION_DATE,OTHER</Values>
+			</Field>
+			<Field name="suppressSSNID">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>true</Default>
+			</Field>
+			<Field name="broker">
+				<Type>String</Type>
+				<Size>15</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="state">
+				<Type>String</Type>
+				<Size>20</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="asOfDate">
+				<Type>Date</Type>
+				<Size>10</Size>
+				<Required>1</Required>
+			</Field>
+			<Field name="accounts">
+				<Type>String</Type>
+				<!-- <Size>10</Size> -->
+				<Required>1</Required>
+				<Default>ALL</Default>
+				<Values>ALL,CURRENT,TERMINATED</Values>
+			</Field>
+			<Field name="includeCancels">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>No</Default>
+			</Field>
+			<Field name="includeDeferrals">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="deductSwaps">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>true</Default>
+			</Field>
+			<Field name="dividendDetails">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="performanceRelatedInfo">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="excludeZeroTaxItems">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeTaxTiers">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="goalStatus">
+				<Type>String</Type>
+				<!-- <Size>11</Size> -->
+				<Required>1</Required>
+				<Default>ALL</Default>
+				<Values>ALL,IN_PROGRESS,ACHIEVED,COMPLETE</Values>
+			</Field>
+			<Field name="employeeType">
+				<Type>String</Type>
+				<!-- <Size>12</Size> -->
+				<Required>1</Required>
+				<Default>EMPLOYEE</Default>
+				<Values>EMPLOYEE,NON-EMPLOYEE</Values>
+			</Field>
+			<Field name="singleApproachEquity">
+				<Type>String</Type>
+				<!-- <Size>13</Size> -->
+				<Required>1</Required>
+				<Default>STRAIGHT_LINE</Default>
+				<Values>STRAIGHT_LINE,RATABLE,GRANT_LEVEL</Values>
+			</Field>
+			<Field name="definedTaxRate">
+				<Type>Number</Type>
+				<Format>^100$|^\d{0,2}(\.\d{1,2})? *%?$</Format> <!-- > 0, < 100 -->
+				<Required>1</Required>
+				<Precision>valueDecimal</Precision>
+			</Field>
+
+			<Field name="taxMethod">
+				<Type>String</Type>
+				<!-- <Size>13</Size> -->
+				<Required>0</Required>
+				<Default>DEFINED_RATE</Default>
+				<Values>ACCOUNT_LEVEL,DEFINED_RATE</Values>
+				<DependentFields value="DEFINED_RATE">
+					<Field name="taxRate" ref="Shared.definedTaxRate" />
+				</DependentFields>
+			</Field>
+			<Field name="avgMarketValue">
+				<Type>Number</Type>
+				<Required>0</Required>
+				<Precision>valueDecimal</Precision>
+			</Field>
+			<Field name="beginBalanceMethod">
+				<Type>String</Type>
+				<!-- <Size>8</Size> -->
+				<Required>1</Required>
+				<Default>SHORTCUT</Default>
+				<Values>SHORTCUT,REGULAR</Values>
+			</Field>
+			<Field name="forecast">
+				<Type>String</Type>
+				<Size>120</Size>
+				<Required>1</Required>
+				<Lookup>1</Lookup>
+			</Field>
+
+           <Field name="other">
+               <Type>String</Type>
+               <Size>1</Size>
+               <Required>1</Required>
+           </Field>
+           <Field name="characterSeparated">
+                 <Type>String</Type>
+                 <!-- <Size>5</Size> -->
+                 <Required>1</Required>
+                 <Default>TAB</Default>
+                 <Values>TAB,SPACE,OTHER</Values>
+                 <DependentFields value="OTHER">
+                       <Field name="other" ref="Shared.other" />
+                 </DependentFields>
+             </Field>
+             <Field name="includeTextQualifier">
+                 <Type>Boolean</Type>            
+                 <Required>1</Required>
+                 <Default>true</Default>
+            </Field>                    
+             <Field name="excludeNonQualifiedESPPPlans">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>true</Default>
+			</Field>
+			<Field name="gainFromRelease">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="taxBenefitSingleApproachEquity">
+				<Type>String</Type>
+				<Required>1</Required>
+				<Default>RATABLE</Default>
+				<Values>STRAIGHT_LINE,RATABLE,GRANT_LEVEL</Values>
+			</Field>
+			<Field name="estimateOnly">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+				<InnerDependentFields value="true">
+					<Field name="effectiveDate" ref="Shared.effectiveDate" />
+				</InnerDependentFields>
+			</Field>
+			<Field name="includeDeferredTaxAssets">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+				<InnerDependentFields value="true">
+					<Field name="taxMethod" ref="Shared.taxMethod" />
+					<!-- <Field name="taxRate" ref="Shared.definedTaxRate" /> -->
+				</InnerDependentFields>
+			</Field>
+			<Field name="reversePreCombinationExpense">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>			
+			<Field name="useWeightAvgRate">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>			
+			<Field name="forfeitureRates">
+				<Type>String</Type>
+				<!-- <Size>13</Size> -->
+				<Required>1</Required>
+				<Default>GRANT_LEVEL</Default>
+				<Values>GRANT_LEVEL,DEFINED_RATES</Values>
+				<InnerDependentFields value="DEFINED_RATES">
+					<Field name="priorForfeitureRate" ref="Shared.priorRate" />
+					<Field name="forfeitureRate" ref="Shared.currentRate" />
+				</InnerDependentFields>
+			</Field>
+			<Field name="forfeitureReversal">
+				<Type>String</Type>
+				<!-- <Size>18</Size> -->
+				<Required>1</Required>
+				<Default>AT_VEST_DATE</Default>
+				<Values>AT_VEST_DATE,AT_FORFEITURE_DATE</Values>
+			</Field>
+			<Field name="taxBenefitMode"> 
+				<Type>String</Type>
+				<!-- <Size>6</Size> -->
+				<Required>1</Required>
+				<Default>AD_HOC</Default>
+				<Values>AD_HOC,CLOSED</Values>
+				<DependentFields value="CLOSED">
+					<Field name="closeType" ref="Shared.closeType">
+						<InnerDependentFields value="PERIOD_CLOSE">
+							<Field name="splitAdjusted" ref="Shared.splitAdjusted" />
+						</InnerDependentFields>
+					</Field>
+					<Field name="calendar" ref="Shared.calendar" />
+					<Field name="periodType" ref="Shared.periodType" />
+					<Field name="period" ref="Shared.period" />
+				</DependentFields>
+			</Field>
+			<Field name="exercisePriceGroups">
+				<Type>Number</Type>
+				<Required>1</Required>
+				<Values>1,2,3,4,5,6,7,8,9,10</Values>
+			</Field>
+			<Field name="valuationForfeitureRate">
+				<Type>String</Type>
+				<Required>1</Required>
+				<Default>GRANT_LEVEL</Default>
+				<Values>GRANT_LEVEL,DEFINED_RATE</Values>
+				<DependentFields value="DEFINED_RATE">
+					<Field name="definedRate" ref="Shared.definedTaxRate" />
+				</DependentFields>
+			</Field>
+			<Field name="esppForfeitureRate">
+				<Type>Number</Type>
+				<Required>0</Required>
+			</Field>
+			<Field name="singleUseWgtAvgRate">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeTargetPayoutForAchievedGoals">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="valuationPurchasePlan">
+				<Type>String</Type>
+				<Size>4</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+				<ValidateMethod>valuationReportTypeValidation</ValidateMethod>				
+			</Field>
+			<Field name="valuationPlan">
+				<Type>String</Type>
+				<Size>4</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+				<ValidateMethod>valuationReportTypeValidation</ValidateMethod>				
+			</Field>
+			<Field name="valuationReportType">
+				<Type>String</Type>
+				<Required>1</Required>
+				<Default>ALL</Default>
+				<Values>ALL,OPTIONS,AWARDS,ESPP</Values>
+				<DependentFields value="ALL">
+					<Field name="planName" ref="Shared.plan" />
+					<Field name="purchasePlan" ref="Shared.purchasePlan" />
+				</DependentFields>
+				<DependentFields value="OPTIONS">
+					<Field name="planName" ref="Shared.plan" />
+					<Field name="purchasePlan" ref="Shared.valuationPurchasePlan" />
+				</DependentFields>
+				<DependentFields value="AWARDS">
+					<Field name="planName" ref="Shared.plan" />
+					<Field name="purchasePlan" ref="Shared.valuationPurchasePlan" />
+				</DependentFields>
+				<DependentFields value="ESPP">
+				<Field name="planName" ref="Shared.valuationPlan" />
+					<Field name="purchasePlan" ref="Shared.purchasePlan" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	
+		<Report name="Common">
+		<Fields>
+			<Field name="reportName">
+				<Type>String</Type>
+				<Size>50</Size>
+				<Required>1</Required>
+				<ValidateMethod>reportViewValidation</ValidateMethod>
+			</Field>
+			<Field name="reportViewName">
+				<Type>String</Type>
+				<Required>0</Required>
+				<ValidateMethod>reportViewValidation</ValidateMethod>
+			</Field>
+			<Field name="displaySSN">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>true</Default>
+				<ValidateMethod>maskSSNEntitlementCheck</ValidateMethod> <!-- Company level feature enabled, then default as 'false', otherwise default 
+					as ' true ' -->
+			</Field>
+			<Field name="notification">
+				<Type>String</Type>
+				<!-- <Size>20</Size> -->
+				<Required>1</Required>
+				<Default>DO_NOT_NOTIFY</Default>
+				<Values>NOTIFY_FINAL_STATUS,NOTIFY_CHANGE_STATUS,DO_NOT_NOTIFY</Values>
+			</Field>
+			<Field name="reportOutputFormat">
+               <Type>String</Type>
+               <Required>0</Required>
+               <Values>EXCEL07,EXCEL,PDF,CSV,XML,CSVFULL,CHARACTER_SEPARATED</Values>
+               <DependentFields>
+					<Field name="characterSeparated" ref="Shared.characterSeparated" />
+					<Field name="includeTextQualifier" ref="Shared.includeTextQualifier" />
+               </DependentFields>
+           </Field>
+			
+		</Fields>
+	</Report>
+	<Report name="Account">
+		<Fields>
+			<Field name="account">
+				<Type>String</Type>
+				<!-- <Size>10</Size> -->
+				<Required>1</Required>
+				<Default>ALL</Default>
+				<Values>ALL,CURRENT,TERMINATED,ON_LEAVE</Values>
+				<DependentFields value="TERMINATED">
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="PersonnelSummary">
+		<Fields>
+			<Field name="paramMode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="asOfDate" ref="Shared.asOfDate" />
+					<Field name="reportType" ref="Shared.reportType" />
+					<Field name="account" ref="Shared.accounts" />
+					<Field name="includeCancels" ref="Shared.includeCancels" />
+					<Field name="status" ref="Shared.status" />
+					<Field name="dividends" ref="Shared.dividends" />
+					<Field name="dividendDetails" ref="Shared.dividendDetails" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="performanceRelatedInfo" ref="Shared.performanceRelatedInfo" />
+				</DependentFields>
+				<DependentFields value="CLOSED">
+					<Field name="version" ref="Shared.version" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="PersonnelVestingSummary">
+		<Fields>
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+			<Field name="marketValue" ref="Shared.marketValue" />
+			<Field name="dividends" ref="Shared.dividends" />
+			<Field name="dividendDetails" ref="Shared.dividendDetails" />
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="vestingPeriods">
+				<Type>Number</Type>
+				<Required>1</Required>
+				<Values>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60</Values>
+			</Field>
+			<Field name="account" ref="Shared.accounts" />
+			<Field name="includeCancels" ref="Shared.includeCancels" />
+			<Field name="considerExpireDate">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="NormalizedReleaseTaxExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="includeTaxTiers" ref="Shared.includeTaxTiers" />
+		</Fields>
+	</Report>		
+	<Report name="SharesSubjectToRelease">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+			<Field name="includeInactive">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeAnyGoalStatus">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="TaxableIncomeExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+			<Field name="userDefinedFields" ref="Shared.detailByUDF" />
+		</Fields>
+	</Report>
+	<Report name="AcctDatedUDFExp"> <!-- Account Effective Dated UDF Export -->
+		<Fields>
+			<Field name="onOrAfter" ref="Shared.beginDate">
+				<Required>0</Required>
+            	<ValidateMethod>onOrBeforeAfterValidation</ValidateMethod>
+			</Field>
+			<Field name="onOrBefore" ref="Shared.endDate">
+				<Required>0</Required>
+			</Field>
+			<Field name="accountEffectiveUDF" ref="Shared.detailByUDF"><!-- Field name will be updated in validation framework as "userDefinedFields" for supporting ReportInputXml  -->
+				<Lookup>1</Lookup>
+			</Field>
+			<Field name="includeDefaultValue">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>true</Default>
+			</Field>
+			<Field name="includeRowLevelSecurityValue">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>true</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="AcctUDFExp" /> <!-- Account Static UDF Export -->
+	<Report name="GrantUDFExp" /> <!-- Grant UDF Export -->
+	<Report name="ContUDFExp" /> <!-- Contribution UDF Export -->
+	<Report name="AwardExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="accountingMethod">
+				<Type>String</Type>
+				<!-- <Size>9</Size> -->
+				<Required>1</Required>
+				<Default>EQUITY</Default>
+				<Values>EQUITY,LIABILITY,BOTH</Values>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="NormalizedExerciseTaxExport">  <!-- Exercise Tax Export -->
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="includeTaxTiers" ref="Shared.includeTaxTiers" />
+		</Fields>
+	</Report>
+	<Report name="ExerUDFExp" /> <!-- Exercise UDF Export -->
+	<Report name="ExerciseVerificationExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+		</Fields>
+	</Report>	
+	<Report name="GoalExport">
+		<Fields>
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+			<Field name="goalStatus" ref="Shared.goalStatus" />
+			<Field name="valuationAmount">
+				<Type>String</Type>
+				<!-- <Size>3</Size> -->
+				<Required>1</Required>
+				<Default>NO</Default>
+				<Values>YES,NO</Values>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="GoalStatusExport">
+		<Fields>
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+			<Field name="goalStatus" ref="Shared.goalStatus" />
+		</Fields>
+	</Report>
+	<Report name="AwardsReleased">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="dividends" ref="Shared.dividends" />
+			<Field name="performanceRelatedInfo" ref="Shared.performanceRelatedInfo" />
+		</Fields>
+	</Report>
+	<Report name="CapitalAccountsReconciliation">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="useConfirmDate" ref="Shared.useConfirmDate" />
+			<Field name="useSARsNetCalculation" ref="Shared.useSARsNetCalculation" />
+		</Fields>
+	</Report>
+	<Report name="ClosingStatement">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="asOf" ref="Shared.asOf">
+				<DependentFields value="OTHER">
+					<Field name="effectiveDate" ref="Shared.effectiveDate" />
+				</DependentFields>
+			</Field>
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+			<Field name="ignoreExpireDate">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="ignoreVestCancelDate">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="ConfirmationOfExercise">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+			<Field name="includeExerciseNumber">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="ConfirmationofRelease">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="includeReleaseNumber">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeGoalMetrics">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeGoalInfo">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="EscrowTransferAgentReleaseSummary">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="broker" ref="Shared.broker" />
+			<Field name="deductSwaps" ref="Shared.deductSwaps" />
+		</Fields>
+	</Report>
+	<Report name="ExerciseMailMerge">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+		</Fields>
+	</Report>
+<!-- ExpenseAllocationRecognition Start-->
+		<Report name="ExpenseAllocationRecognition">
+	 <Fields>
+			<Field name="paramMode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="reportType" ref="Shared.reportType" />
+					<Field name="detailByUDF" ref="Shared.detailByUDF" />
+					<Field name="marketValue" ref="Shared.marketValue" />
+					<Field name="priorMarketValue" ref="Shared.priorMarketValue" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="status" ref="Shared.status" />
+					<Field name="estimateOnly" ref="Shared.estimateOnly" />
+					<Field name="reversePreCombinationExpense" ref="Shared.reversePreCombinationExpense" />
+					<Field name="method" ref="Shared.singleApproachEquity" />
+					<Field name="useWeightedAvg" ref="Shared.useWeightAvgRate" />
+					<Field name="forfeitureRateType" ref="Shared.forfeitureRates" />
+					<Field name="forfeitureReversalMethod" ref="Shared.forfeitureReversal" />
+					<Field name="includeDeferredTaxAsset" ref="Shared.includeDeferredTaxAssets" />
+					<Field name="taxMethod" ref="Shared.taxMethod" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+<!-- ExpenseAllocationRecog  End -->
+	<Report name="OptionsExercised">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+			<Field name="state" ref="Shared.state" />
+		</Fields>
+	</Report>
+	<Report name="OptionsOutstandingbyPrice">
+		<Fields>
+			<Field name="status" ref="Shared.status" />
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+		</Fields>
+	</Report>
+	<Report name="OptionsandAwardsCancelled">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="reportType" ref="Shared.reportType" />
+		</Fields>
+	</Report>
+	<Report name="OptionsandAwardsGranted">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="reportType" ref="Shared.reportType" />
+		</Fields>
+	</Report>
+	<Report name="OptionsandAwardsSummary">
+		<Fields>
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+			<Field name="marketValue">
+				<Type>Number</Type>
+				<Size>20</Size>
+				<Required>1</Required>
+				<Precision>valueDecimal</Precision>
+			</Field>
+			<Field name="includeCancels" ref="Shared.includeCancels" />
+			<Field name="account" ref="Shared.accounts" />
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="showDeferral" ref="Shared.includeDeferrals" />
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+			<Field name="expandOptionVestingSchedule">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="status" ref="Shared.status" />
+		</Fields>
+	</Report>
+	<Report name="PayrollSummary">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="state" ref="Shared.state" />
+			<Field name="isoUnvExercise">
+				<Type>String</Type>
+				<!-- <Size>11</Size> -->
+				<Required>1</Required>
+				<Default>ON_VEST</Default>
+				<Values>ON_VEST,ON_EXERCISE</Values>
+			</Field>
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+		</Fields>
+	</Report>
+	<Report name="PersonnelGrantStatus">
+		<Fields>
+			<Field name="asOfDate" ref="Shared.asOfDate" />
+			<Field name="includeCancels" ref="Shared.includeCancels" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="includeDeferrals" ref="Shared.includeDeferrals" />
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+			<Field name="deductSwaps" ref="Shared.deductSwaps" />
+		</Fields>
+	</Report>
+	<Report name="PlanSummary">
+		<Fields>
+			<Field name="paramMode" ref="Shared.mode">
+				<DependentFields> <!-- Only applicable DependentFields -->
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="planName" ref="Shared.plan" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">		 <!-- Override/Appending fields has same values -->
+					<Field name="status" ref="Shared.status" />
+					<Field name="performanceBasedOn" ref="Shared.performanceBasedOn" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="ReleaseExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="broker" ref="Shared.broker" />
+			<Field name="userDefinedFields" ref="Shared.detailByUDF" />
+			<Field name="status" ref="Shared.status" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+			<Field name="includeWithoutConfirmationDate">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+			<Field name="includeWithoutBrokerID">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="TaxBenefitReconciliation">
+		<Fields>
+			<Field name="paramMode" ref="Shared.taxBenefitMode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="reportType" ref="Shared.reportType" />
+					<Field name="userDefinedFields" ref="Shared.detailByUDF" />
+					<Field name="dividends" ref="Shared.dividends" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="method" ref="Shared.taxBenefitSingleApproachEquity" />
+					<Field name="forfeitureReversalMethod" ref="Shared.forfeitureReversal" />
+					<Field name="beginBalanceMethod" ref="Shared.beginBalanceMethod" />
+					<Field name="taxMethod" ref="Shared.taxMethod" />
+					<Field name="gainFromRelease" ref="Shared.gainFromRelease" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	
+	<Report name="TransferAgentIssuanceSummary">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="reportType" ref="Shared.reportType" />
+			<Field name="controlNumber">
+				<Type>String</Type>
+				<Size>50</Size>
+				<Required>0</Required>
+			</Field>
+			<Field name="deductSwaps" ref="Shared.deductSwaps" />
+			<Field name="suppressSSNID" ref="Shared.suppressSSNID" />
+		</Fields>
+	</Report>
+	<Report name="ValuationDisclosureRecap">
+		<Fields>
+			<Field name="paramMode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="marketValue" ref="Shared.marketValue" />
+					<Field name="reportType" ref="Shared.valuationReportType" />
+					<Field name="dividends" ref="Shared.dividends" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="status" ref="Shared.status" />
+					<Field name="exercisePriceGroups" ref="Shared.exercisePriceGroups" />
+					<Field name="forfeitureRateType" ref="Shared.valuationForfeitureRate" />
+					<Field name="esppForfeitureRate" ref="Shared.esppForeitureRate" />
+					<Field name="useWeightedAvg" ref="Shared.singleUseWgtAvgRate" />
+					<Field name="targetPayoutAcheivedGoals" ref="Shared.includeTargetPayoutForAchievedGoals" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="ValuationOfOptionsAndAwardsGranted">
+		<Fields>
+			<Field name="mode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="reportType" ref="Shared.reportType" />
+					<Field name="plan" ref="Shared.plan" />
+					<Field name="employeeType" ref="Shared.employeeType" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="status" ref="Shared.status" />
+					<Field name="singleApproachEquity" ref="Shared.singleApproachEquity" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="WeightedAwardsOutstanding">
+		<Fields>
+			<Field name="mode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="dividends" ref="Shared.dividends" />
+					<Field name="status" ref="Shared.status" />
+					<Field name="avgMarketValue" ref="Shared.avgMarketValue" />
+					<Field name="marketValue" ref="Shared.marketValue" />
+					<Field name="priorMarketValue" ref="Shared.priorMarketValue" />
+					<Field name="useTargetPctForExpense">
+						<Type>Boolean</Type>
+						<Required>0</Required>
+						<Default>true</Default>
+					</Field>
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="singleExpenseEquity" ref="Shared.singleApproachEquity" />
+					<Field name="taxMethod" ref="Shared.taxMethod" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="WeightedOptionsOutstanding">
+		<Fields>
+			<Field name="mode" ref="Shared.mode">
+				<DependentFields>
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+					<Field name="status" ref="Shared.status" />
+					<Field name="marketValue" ref="Shared.marketValue" />
+					<Field name="priorMarketValue" ref="Shared.priorMarketValue" />
+					<Field name="avgMarketValue" ref="Shared.avgMarketValue" />
+				</DependentFields>
+				<DependentFields value="AD_HOC">
+					<Field name="singleApproachMethod" ref="Shared.singleApproachEquity" />
+					<Field name="beginBalance" ref="Shared.beginBalanceMethod" />
+					<Field name="expense">
+						<Type>String</Type>
+						<!-- <Size>7</Size> -->
+						<Required>1</Required>
+						<Default>FAS_123</Default>
+						<Values>APB_25,FAS_123</Values>
+					</Field>
+					<Field name="forecast" ref="Shared.forecast" />
+					<Field name="priorForecast" ref="Shared.forecast" />
+					<Field name="taxMethod" ref="Shared.taxMethod" />
+					<Field name="taxBenifitForForeignNationals">
+						<Type>Boolean</Type>
+						<Required>0</Required>
+						<Default>false</Default>
+					</Field>
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="BusinessCombinationAuditExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="reportType" ref="Shared.reportType" />
+		</Fields>
+	</Report>
+	<Report name="ContributionExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="onlyUnused">
+				<Type>Boolean</Type>
+				<Required>1</Required>
+				<Default>true</Default>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="CorporateTaxTableExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="corporateTaxDescription">
+				<Type>String</Type>
+				<Size>45</Size>
+				<Required>0</Required>
+				<Default>All</Default>
+				<Lookup>1</Lookup>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="DispositionExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="transferType">
+				<Type>String</Type>
+				<!-- <Size>11</Size> -->
+				<Required>1</Required>
+				<Default>ALL</Default>
+				<Values>ALL,PENDING,STREET_NAME,SOLD</Values>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="ExerciseExport">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="excludeZeroTaxItems" ref="Shared.excludeZeroTaxItems" />
+			<Field name="userDefinedFields" ref="Shared.detailByUDF" />
+			<Field name="includeWithoutBrokerID">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+			</Field>
+		</Fields>
+	</Report>		
+	<Report name="ForeignExchangeTableExport">
+		<Fields>
+			<Field name="all">
+				<Type>Boolean</Type>
+				<Required>0</Required>
+				<Default>false</Default>
+				<DependentFields value="false">
+					<Field name="beginDate" ref="Shared.beginDate" />
+					<Field name="endDate" ref="Shared.endDate" />
+				</DependentFields>
+			</Field>
+		</Fields>
+	</Report>
+	<Report name="Form3921Export">
+		<Fields>
+			<Field name="beginDate" ref="Shared.beginDate" />
+			<Field name="endDate" ref="Shared.endDate" />
+			<Field name="planName" ref="Shared.plan" />
+		</Fields>
+	</Report>
+	<Report name="Form3922Export">
+	<Fields>
+		<Field name="beginDate" ref="Shared.beginDate" />
+		<Field name="endDate" ref="Shared.endDate" />
+		<Field name="purchasePlan" ref="Shared.purchasePlan"/>
+		<Field name="excludeNonQualifiedESPPPlans"
+			ref="Shared.excludeNonQualifiedESPPPlans" />
+	</Fields>
+</Report>
+	
+</Reports>

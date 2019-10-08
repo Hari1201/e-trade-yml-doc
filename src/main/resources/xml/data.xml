@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<import>
+	<importType name="Account"><!-- ImportSection will replace with dynamic value while doing xml parsing -->
+		<tags>
+			<nameParam>Account-controller</nameParam>
+			<description>E-Trade swagger</description>
+		</tags>
+		<paths name="paths" type="array">
+			<path name="/eeo/async/Account">
+				<opertaion name="get">
+					<tags name="tags">
+						<tag-param>Account-controller</tag-param>
+					</tags>
+					<summary>Account details</summary>
+					<operationId>helloUsingGET</operationId>
+					<consumesParam>application/json</consumesParam>
+					<producesParam>*/*</producesParam>
+					<parameters name="parameters" type="array">
+						<parameter>
+							<key> - in</key>
+							<value>body</value>
+						</parameter>
+						<parameter>
+							<key> name</key>
+							<value>idfisdf</value>
+						</parameter>
+						<parameter>
+							<key> description</key>
+							<value>sdfsdfsdf</value>
+						</parameter>
+						<parameter>
+							<key> required</key>
+							<value>true</value>
+						</parameter>
+						<parameter>
+							<key> schema</key>
+							<innerParameter>
+								<key> $ref</key>
+								<value>dfsdfsd</value>
+							</innerParameter>
+						</parameter>
+					</parameters>
+					<responses>
+						<response name="200">
+							<description>Successful e-trade</description>
+							<schema>
+								<key>$ref</key>
+								<value>#/definitions/ResponseBean</value>
+							</schema>
+						</response>
+						<response name="401">
+							<description>Unauthorized</description>
+						</response>
+						<response name="403">
+							<description>Forbidden</description>
+						</response>
+						<response name="404">
+							<description>Not Found</description>
+						</response>
+						<response name="500">
+							<description>Internal Server Error</description>
+						</response>
+					</responses>
+				</opertaion>
+			</path>
+			<path name="/eeo/async/status/{handle}">
+				<opertaion name="get">
+					<tags name="tags">
+						<tag-param>Account-controller</tag-param>
+					</tags>
+					<summary>Gets the status of the given Account Import request
+						using handle (task id)</summary>
+					<operationId>importStatusUsingGET</operationId>
+					<consumes-param>application/json</consumes-param>
+					<produces-param>*/*</produces-param>
+					<parameters name="parameters" type="array">
+						<parameter>
+							<key> - name</key>
+							<value>handle</value>
+						</parameter>
+						<parameter>
+							<key> in</key>
+							<value>path</value>
+						</parameter>
+						<parameter>
+							<key> description</key>
+							<value>handle</value>
+						</parameter>
+						<parameter>
+							<key> type</key>
+							<value>string</value>
+						</parameter>
+					</parameters>
+					<responses>
+						<response name="200">
+							<description>&lt;PENDING|RUNNING|COMPLETED|FAILED|COMPLETED_WITH_ERRORS&gt;</description>
+							<schema>
+								<key>$ref</key>
+								<value>#/definitions/ResponseBean</value>
+							</schema>
+						</response>
+						<response name="401">
+							<description>Unauthorized</description>
+						</response>
+						<response name="403">
+							<description>Forbidden</description>
+						</response>
+						<response name="404">
+							<description>Not Found</description>
+						</response>
+						<response name="500">
+							<description>Internal Server Error</description>
+						</response>
+					</responses>
+				</opertaion>
+			</path>
+			<path name="/eeo/async/statusresult/{handle}">
+				<opertaion name="get">
+					<tags name="tags">
+						<tag-param>Account-controller</tag-param>
+					</tags>
+					<summary>Gets the results for given Account Import request
+						using handle (task id).</summary>
+					<operationId>getImportRequestResultUsingGET</operationId>
+					<consumes-param>application/json</consumes-param>
+					<produces-param>*/*</produces-param>
+					<parameters name="parameters" type="array">
+						<parameter>
+							<key> - in</key>
+							<value>body</value>
+						</parameter>
+						<parameter>
+							<key> name</key>
+							<value>requestBody</value>
+						</parameter>
+						<parameter>
+							<key> description</key>
+							<value>requestBody</value>
+						</parameter>
+						<parameter>
+							<key> required</key>
+							<value>true</value>
+						</parameter>
+						<parameter>
+							<key> type</key>
+							<value>string</value>
+						</parameter>
+					</parameters>
+					<responses>
+						<response name="200">
+							<description>SUCCESSFUL,REJECTED</description>
+							<schema>
+								<key>$ref</key>
+								<value>#/definitions/ImportResultsResponse</value>
+							</schema>
+						</response>
+						<response name="401">
+							<description>Unauthorized</description>
+						</response>
+						<response name="403">
+							<description>Forbidden</description>
+						</response>
+						<response name="404">
+							<description>Not Found</description>
+						</response>
+						<response name="500">
+							<description>Internal Server Error</description>
+						</response>
+					</responses>
+				</opertaion>
+			</path>
+		</paths>
+	</importType>
+</import>
